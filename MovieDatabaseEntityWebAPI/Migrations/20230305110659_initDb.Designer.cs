@@ -12,8 +12,8 @@ using MovieDatabaseEntityWebAPI.Models;
 namespace MovieDatabaseEntityWebAPI.Migrations
 {
     [DbContext(typeof(MoviesDbContext))]
-    [Migration("20230305075711_testingg")]
-    partial class testingg
+    [Migration("20230305110659_initDb")]
+    partial class initDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

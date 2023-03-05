@@ -7,7 +7,7 @@
 namespace MovieDatabaseEntityWebAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class testingg : Migration
+    public partial class initDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
