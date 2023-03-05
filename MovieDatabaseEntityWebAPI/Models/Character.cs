@@ -13,7 +13,7 @@ namespace MovieDatabaseEntityWebAPI.Models
         public string? Alias { get; set; }
         [MaxLength(30)]
         public string? Gender { get; set; }
-        [MaxLength(150)]
+        [MaxLength(256)]
         public string? Picture { get; set; }
         //navigation
         public virtual ICollection<Movie>? Movies { get; set; }

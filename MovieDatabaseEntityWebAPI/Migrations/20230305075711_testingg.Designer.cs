@@ -12,8 +12,8 @@ using MovieDatabaseEntityWebAPI.Models;
 namespace MovieDatabaseEntityWebAPI.Migrations
 {
     [DbContext(typeof(MoviesDbContext))]
-    [Migration("20230305055920_InitialDb")]
-    partial class InitialDb
+    [Migration("20230305075711_testingg")]
+    partial class testingg
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,6 +38,33 @@ namespace MovieDatabaseEntityWebAPI.Migrations
                     b.HasIndex("MoviesId");
 
                     b.ToTable("CharacterMovie");
+
+                    b.HasData(
+                        new
+                        {
+                            CharactersId = 1,
+                            MoviesId = 1
+                        },
+                        new
+                        {
+                            CharactersId = 2,
+                            MoviesId = 1
+                        },
+                        new
+                        {
+                            CharactersId = 1,
+                            MoviesId = 3
+                        },
+                        new
+                        {
+                            CharactersId = 2,
+                            MoviesId = 3
+                        },
+                        new
+                        {
+                            CharactersId = 3,
+                            MoviesId = 2
+                        });
                 });
 
             modelBuilder.Entity("MovieDatabaseEntityWebAPI.Models.Character", b =>
@@ -62,12 +89,38 @@ namespace MovieDatabaseEntityWebAPI.Migrations
                         .HasColumnType("nvarchar(60)");
 
                     b.Property<string>("Picture")
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Characters");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Alias = "Neo",
+                            Gender = "Male",
+                            Name = "Keanu Reeves",
+                            Picture = "https://www.indiewire.com/wp-content/uploads/2017/07/the-matrix-revolutions.jpg"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Alias = "Trinity",
+                            Gender = "Female",
+                            Name = "Carrie-Anne Moss",
+                            Picture = "https://sm.ign.com/t/ign_nl/screenshot/b/bcarrie-an/bcarrie-anne-moss-as-trinitybbrbrcarrie-anne-moss-will-also_rhwq.1080.jpg"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Alias = "Batman",
+                            Gender = "Male",
+                            Name = "Christian Bale",
+                            Picture = "https://variety.com/wp-content/uploads/2022/06/Screen-Shot-2022-06-27-at-9.56.12-AM.png"
+                        });
                 });
 
             modelBuilder.Entity("MovieDatabaseEntityWebAPI.Models.Franchise", b =>
@@ -79,8 +132,8 @@ namespace MovieDatabaseEntityWebAPI.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -90,6 +143,20 @@ namespace MovieDatabaseEntityWebAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Franchises");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Movie series where the protagonist realizes that the world is just a stimulation and a virus in the form of a human is corrupting it",
+                            Name = "The Matrix"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "The protagonist's billionaire parents are murdered at a young age. He uses his inhertited money to buy armor and car to be used for fighting criminals",
+                            Name = "Batman"
+                        });
                 });
 
             modelBuilder.Entity("MovieDatabaseEntityWebAPI.Models.Movie", b =>
@@ -114,8 +181,8 @@ namespace MovieDatabaseEntityWebAPI.Migrations
                         .HasColumnType("nvarchar(60)");
 
                     b.Property<string>("Picture")
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("ReleaseYear")
                         .IsRequired()
@@ -128,14 +195,49 @@ namespace MovieDatabaseEntityWebAPI.Migrations
                         .HasColumnType("nvarchar(60)");
 
                     b.Property<string>("Trailer")
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("FranchiseId");
 
                     b.ToTable("Movies");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Director = "Wachowski",
+                            FranchiseId = 1,
+                            Genre = "Action, Science fiction",
+                            Picture = "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg",
+                            ReleaseYear = "1999",
+                            Title = "The Matrix",
+                            Trailer = "https://www.youtube.com/watch?v=vKQi3bBA1y8"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Director = "Christopher Nolan",
+                            FranchiseId = 2,
+                            Genre = "Action, Superhero",
+                            Picture = "https://m.media-amazon.com/images/M/MV5BODE0MzZhZTgtYzkwYi00YmI5LThlZWYtOWRmNWE5ODk0NzMxXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg",
+                            ReleaseYear = "2008",
+                            Title = "The Dark Knight",
+                            Trailer = "https://www.youtube.com/watch?v=EXeTwQWrcwY"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Director = "Wachowski",
+                            FranchiseId = 1,
+                            Genre = "Action, Science fiction",
+                            Picture = "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg",
+                            ReleaseYear = "2003",
+                            Title = "The Matrix Reloaded",
+                            Trailer = "https://www.youtube.com/watch?v=kYzz0FSgpSU"
+                        });
                 });
 
             modelBuilder.Entity("CharacterMovie", b =>

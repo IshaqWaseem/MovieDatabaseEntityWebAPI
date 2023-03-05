@@ -9,7 +9,7 @@ namespace MovieDatabaseEntityWebAPI.Models
         [MaxLength(60)]
         [Required]
         public string Name { get; set; } = null!;
-        [MaxLength(150)]
+        [MaxLength(256)]
         public string? Description { get; set; }
         //Navigation
         public virtual ICollection<Movie>? Movies { get; set; }

@@ -18,9 +18,9 @@ namespace MovieDatabaseEntityWebAPI.Models
         [MaxLength(60)]
         [Required]
         public string Director { get; set; } = null!;
-        [MaxLength(150)]
+        [MaxLength(256)]
         public string? Picture { get; set; }
-        [MaxLength(150)]
+        [MaxLength(256)]
         public string? Trailer { get; set; }
         //navigation
         public int? FranchiseId { get; set; }
