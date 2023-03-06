@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MovieDatabaseEntityWebAPI.Models.Entities;
 using System.IO;
 
 namespace MovieDatabaseEntityWebAPI.Models

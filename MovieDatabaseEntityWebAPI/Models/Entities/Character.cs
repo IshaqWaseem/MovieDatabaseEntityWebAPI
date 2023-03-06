@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MovieDatabaseEntityWebAPI.Models
+namespace MovieDatabaseEntityWebAPI.Models.Entities
 {
     public class Character
     {
@@ -17,7 +17,7 @@ namespace MovieDatabaseEntityWebAPI.Models
         public string? Picture { get; set; }
         //navigation
         public virtual ICollection<Movie>? Movies { get; set; }
-        
+
 
     }
 }

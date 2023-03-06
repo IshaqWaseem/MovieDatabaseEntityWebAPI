@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MovieDatabaseEntityWebAPI.Models
+namespace MovieDatabaseEntityWebAPI.Models.Entities
 {
     public class Franchise
     {

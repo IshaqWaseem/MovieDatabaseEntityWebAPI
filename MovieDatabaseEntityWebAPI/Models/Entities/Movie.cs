@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MovieDatabaseEntityWebAPI.Models
+namespace MovieDatabaseEntityWebAPI.Models.Entities
 {
     public class Movie
     {
@@ -23,7 +23,8 @@ namespace MovieDatabaseEntityWebAPI.Models
         [MaxLength(256)]
         public string? Trailer { get; set; }
         //navigation
-        public int? FranchiseId { get; set; }
+        public int FranchiseId { get; set; }
+        public Franchise Franchise { get; set; } = null!;
         public virtual ICollection<Character>? Characters { get; set; }
     }
 }
