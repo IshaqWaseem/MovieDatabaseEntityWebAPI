@@ -71,6 +71,31 @@ namespace MovieDatabaseEntityWebAPI.Services.Movies
             await _context.SaveChangesAsync();
 
         }
+        public async Task UpdateCharactersAsync(int[] characterIds, int movieId)
+        {
+            // Log and throw pattern
+            if (!await MovieExistsAsync(movieId))
+            {
+                _logger.LogError("Movie not found with Id: " + movieId);
+                throw new MovieNotFoundException();
+            }
+           
+            List<Character> characters = characterIds
+                .ToList()
+                .Select(sid => _context.Characters
+                .Where(s => s.Id == sid).First())
+                .ToList();
+
+            Movie movie = await _context.Movies
+                .Where(p => p.Id == movieId)
+                .FirstAsync();
+
+            movie.Characters = characters;
+            _context.Entry(movie).State = EntityState.Modified;
+            // Save all the changes
+            await _context.SaveChangesAsync();
+        }
+
         private async Task<bool> MovieExistsAsync(int id)
         {
             return await _context.Movies.AnyAsync(e => e.Id == id);

@@ -123,7 +123,29 @@ namespace MovieDatabaseEntityWebAPI.Controllers
                     );
             }
         }
+        /// <summary>
+        /// adds movies to franchise
+        /// </summary>
+        /// <returns></returns>
+        [HttpPut("{id}/movies")]
+        public async Task<IActionResult> UpdateFranchiseMoviesAsync(int[] movieIds, int id)
+        {
+            try
+            {
+                await _franchiseService.UpdateMoviesAsync(movieIds, id);
+                return NoContent();
+            }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound(
+                    new ProblemDetails()
+                    {
+                        Detail = ex.Message,
+                        Status = ((int)HttpStatusCode.NotFound)
+                    }
+                    );
+            }
 
-      
+        }
     }
 }

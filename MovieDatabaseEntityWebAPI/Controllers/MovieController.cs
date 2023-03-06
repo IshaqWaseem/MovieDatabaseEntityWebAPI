@@ -28,10 +28,10 @@ namespace MovieDatabaseEntityWebAPI.Controllers
             _movieService = movieService;
         }
 
-      
 
+        //GET: api/Movie
         /// <summary>
-        /// Get all the movies in the database
+        /// Get all the movies in the database, including list of characters ids
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -42,6 +42,10 @@ namespace MovieDatabaseEntityWebAPI.Controllers
         }
 
         // GET: api/Movie/5
+        /// <summary>
+        /// Get movie by id, includes list of character ids
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Movie>> GetMovie(int id)
         {
@@ -67,6 +71,10 @@ namespace MovieDatabaseEntityWebAPI.Controllers
 
         // PUT: api/Movie/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Update movie by id, "ReleaseYear" CANNOT BE MORE THAN 4 CHARACTERS
+        /// </summary>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMovieAsync(int id, MoviePutDto movie)
         {
@@ -96,6 +104,10 @@ namespace MovieDatabaseEntityWebAPI.Controllers
 
         // POST: api/Movie
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Create a movie in the database
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> PostMovieAsync(MoviePostDto movieDto)
         {
@@ -105,6 +117,10 @@ namespace MovieDatabaseEntityWebAPI.Controllers
         }
 
         // DELETE: api/Movie/5
+        /// <summary>
+        /// Delete a movie in the database by Id
+        /// </summary>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMovieAsync(int id)
         {
@@ -126,7 +142,32 @@ namespace MovieDatabaseEntityWebAPI.Controllers
                     );
             }
         }
+        /// <summary>
+        /// adds characters to movie
+        /// </summary>
+        /// <returns></returns>
+        [HttpPut("{id}/characters")]
+        public async Task<IActionResult> UpdateMovieCharactersAsync(int[] characterIds, int id)
+        {
+            try
+            {
+                await _movieService.UpdateCharactersAsync(characterIds, id);
+                return NoContent();
+            }
+            catch (EntityNotFoundException ex)
+            {
+                // Formatting an error code for the exception messages.
+                // Using the built in Problem Details.
+                return NotFound(
+                    new ProblemDetails()
+                    {
+                        Detail = ex.Message,
+                        Status = ((int)HttpStatusCode.NotFound)
+                    }
+                    );
+            }
+        }
 
-       
+
     }
 }

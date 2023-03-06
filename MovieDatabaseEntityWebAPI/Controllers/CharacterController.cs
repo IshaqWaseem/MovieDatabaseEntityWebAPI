@@ -30,6 +30,10 @@ namespace MovieDatabaseEntityWebAPI.Controllers
 
 
         // GET: api/Character
+        /// <summary>
+        /// Get all characters in database, including its movies
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CharacterDto>>> GetCharacters()
         {
@@ -64,6 +68,10 @@ namespace MovieDatabaseEntityWebAPI.Controllers
 
         // PUT: api/Character/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// get a character by Id, includes movies
+        /// </summary>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCharacterAsync(int id, CharacterPutDto character)
         {
@@ -91,10 +99,14 @@ namespace MovieDatabaseEntityWebAPI.Controllers
             }
 
         }
-        
+
 
         // POST: api/Character
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// create a character in the database
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> PostCharacterAsync(CharacterPostDto characterDto)
         {
@@ -105,6 +117,10 @@ namespace MovieDatabaseEntityWebAPI.Controllers
         }
 
         // DELETE: api/Character/5
+        /// <summary>
+        /// delete a character from database
+        /// </summary>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCharacterAsync(int id)
         {

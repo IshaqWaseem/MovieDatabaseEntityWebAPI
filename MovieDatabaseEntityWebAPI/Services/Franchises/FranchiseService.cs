@@ -39,7 +39,7 @@ namespace MovieDatabaseEntityWebAPI.Services.Franchises
 
         public async Task<ICollection<Franchise>> GetAllAsync()
         {
-            return await _context.Franchises.ToListAsync();
+            return await _context.Franchises.Include(f => f.Movies).ToListAsync();
         }
 
         public async Task<Franchise> GetByIdAsync(int id)
@@ -66,6 +66,27 @@ namespace MovieDatabaseEntityWebAPI.Services.Franchises
                 throw new CharacterNotFoundException();
             }
             _context.Entry(entity).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+        public async Task UpdateMoviesAsync(int[] movieIds, int franchiseId)
+        {
+            if (!await FranchiseExistsAsync(franchiseId))
+            {
+                _logger.LogError("Franchise not found with Id: " + franchiseId);
+                throw new FranchiseNotFoundException();
+            }
+            List<Movie> movies = movieIds
+                .ToList()
+                .Select(sid => _context.Movies
+                .Where(s => s.Id == sid).First())
+                .ToList();
+            Franchise franchise = await _context.Franchises
+                .Where(p => p.Id == franchiseId)
+                .FirstAsync();
+  
+            franchise.Movies = movies;
+            _context.Entry(franchise).State = EntityState.Modified;
+      
             await _context.SaveChangesAsync();
         }
         private async Task<bool> FranchiseExistsAsync(int id)
