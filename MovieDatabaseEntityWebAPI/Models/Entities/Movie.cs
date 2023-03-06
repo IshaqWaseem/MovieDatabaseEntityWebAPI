@@ -22,8 +22,8 @@ namespace MovieDatabaseEntityWebAPI.Models.Entities
         public string? Picture { get; set; }
         [MaxLength(256)]
         public string? Trailer { get; set; }
-        //navigation
         public int FranchiseId { get; set; }
+        //navigation
         public Franchise Franchise { get; set; } = null!;
         public virtual ICollection<Character>? Characters { get; set; }
     }

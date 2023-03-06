@@ -42,9 +42,19 @@ namespace MovieDatabaseEntityWebAPI.Services.Franchises
             return await _context.Franchises.ToListAsync();
         }
 
-        public Task<Franchise> GetByIdAsync(int id)
+        public async Task<Franchise> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            // Log and throw error handling
+            if (!await FranchiseExistsAsync(id))
+            {
+                _logger.LogError("Franchise not found with Id: " + id);
+                throw new FranchiseNotFoundException();
+            }
+            // Want to include all related data for professor
+            return await _context.Franchises
+                .Where(f => f.Id == id)
+                .Include(f => f.Movies)
+                .FirstAsync();
         }
 
         public async Task UpdateAsync(Franchise entity)

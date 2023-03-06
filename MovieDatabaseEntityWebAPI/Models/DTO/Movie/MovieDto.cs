@@ -18,7 +18,7 @@ namespace MovieDatabaseEntityWebAPI.Models.DTO.Movie
         public string? Picture { get; set; }
 
         public string? Trailer { get; set; }
-        public int? Franchise { get; set; }
+        public int? FranchiseId { get; set; }
         public virtual List<int>? Characters { get; set; }
     }
 }

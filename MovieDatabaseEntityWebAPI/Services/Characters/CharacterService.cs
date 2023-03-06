@@ -41,13 +41,24 @@ namespace MovieDatabaseEntityWebAPI.Services.Characters
 
         public async Task<ICollection<Character>> GetAllAsync()
         {
-            return await _context.Characters.ToListAsync();
+            return await _context.Characters.Include(c => c.Movies).ToListAsync();
         }
 
 
-        public Task<Character> GetByIdAsync(int id)
+        public async Task<Character> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            // Log and throw error handling
+            if (!await CharacterExistsAsync(id))
+            {
+                _logger.LogError("Character not found with Id: " + id);
+                throw new CharacterNotFoundException();
+            }
+            // Want to include all related data for professor
+            return await _context.Characters
+                .Where(c => c.Id == id)
+                .Include(c => c.Movies)
+                .FirstAsync();
+
         }
 
         public async Task UpdateAsync(Character entity)
