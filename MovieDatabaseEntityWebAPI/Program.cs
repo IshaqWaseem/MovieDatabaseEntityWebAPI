@@ -39,8 +39,8 @@ namespace MovieDatabaseEntityWebAPI
                     Description = "Simple API to manage postgraduate studies",
                     Contact = new OpenApiContact
                     {
-                        Name = "Ishaq W",
-                        Url = new Uri("https://gitlab.com/NicholasLennox")
+                        Name = "Ishaq Waseem",
+                        Url = new Uri("https://github.com/IshaqWaseem")
                     },
                     License = new OpenApiLicense
                     {

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieDatabaseEntityWebAPI.Exceptions;
 using MovieDatabaseEntityWebAPI.Models;
+using MovieDatabaseEntityWebAPI.Models.DTO.Character;
 using MovieDatabaseEntityWebAPI.Models.DTO.Movie;
 using MovieDatabaseEntityWebAPI.Models.Entities;
 using MovieDatabaseEntityWebAPI.Services.Movies;
@@ -153,6 +154,30 @@ namespace MovieDatabaseEntityWebAPI.Controllers
             {
                 await _movieService.UpdateCharactersAsync(characterIds, id);
                 return NoContent();
+            }
+            catch (EntityNotFoundException ex)
+            {
+                // Formatting an error code for the exception messages.
+                // Using the built in Problem Details.
+                return NotFound(
+                    new ProblemDetails()
+                    {
+                        Detail = ex.Message,
+                        Status = ((int)HttpStatusCode.NotFound)
+                    }
+                    );
+            }
+        }
+        [HttpGet("{id}/characters")]
+        public async Task<ActionResult<IEnumerable<CharacterSummaryDto>>> GetCharactersForMovieAsync(int id)
+        {
+            try
+            {
+                return Ok(
+                        _mapper.Map<List<CharacterSummaryDto>>(
+                            await _movieService.GetCharactersAsync(id)
+                        )
+                    );
             }
             catch (EntityNotFoundException ex)
             {

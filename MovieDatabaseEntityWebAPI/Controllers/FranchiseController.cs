@@ -31,6 +31,10 @@ namespace MovieDatabaseEntityWebAPI.Controllers
 
 
         // GET: api/Franchise
+        /// <summary>
+        /// Get all id, including its movies
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FranchiseDto>>> GetFranchises()
         {
@@ -39,6 +43,10 @@ namespace MovieDatabaseEntityWebAPI.Controllers
         }
 
         // GET: api/Franchise/5
+        /// <summary>
+        /// get a franchise by id, including movies
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Franchise>> GetFranchise(int id)
         {
@@ -64,6 +72,10 @@ namespace MovieDatabaseEntityWebAPI.Controllers
 
         // PUT: api/Franchise/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// update a franchise by id
+        /// </summary>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFranchiseAsync(int id, FranchisePutDto franchise)
         {
@@ -93,6 +105,10 @@ namespace MovieDatabaseEntityWebAPI.Controllers
 
         // POST: api/Franchise
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// create a franchise
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> PostFranchiseAsync(FranchisePostDto franchiseDto)
         {
@@ -102,6 +118,10 @@ namespace MovieDatabaseEntityWebAPI.Controllers
         }
 
         // DELETE: api/Franchise/5
+        /// <summary>
+        /// delete a franchise
+        /// </summary>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFranchiseAsync(int id)
         {

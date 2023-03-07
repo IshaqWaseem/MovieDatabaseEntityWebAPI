@@ -12,7 +12,7 @@ namespace MovieDatabaseEntityWebAPI.Profiles
         {
             CreateMap<CharacterPostDto, Character>();
             CreateMap<CharacterPutDto, Character>();
-
+            CreateMap<Character, CharacterSummaryDto>();
             CreateMap<Character, CharacterDto>()
                 .ForMember(cdto => cdto.Movies, opt => opt
                 .MapFrom(c => c.Movies.Select(c => c.Id).ToArray()));

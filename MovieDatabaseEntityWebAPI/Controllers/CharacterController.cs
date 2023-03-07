@@ -42,6 +42,10 @@ namespace MovieDatabaseEntityWebAPI.Controllers
         }
 
         // GET: api/Character/5
+        /// <summary>
+        /// Get a character by id, including its movies
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Character>> GetCharacter(int id)
         {

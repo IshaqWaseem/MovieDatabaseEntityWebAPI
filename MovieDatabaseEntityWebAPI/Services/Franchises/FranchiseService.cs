@@ -89,6 +89,7 @@ namespace MovieDatabaseEntityWebAPI.Services.Franchises
       
             await _context.SaveChangesAsync();
         }
+
         private async Task<bool> FranchiseExistsAsync(int id)
         {
             return await _context.Franchises.AnyAsync(e => e.Id == id);

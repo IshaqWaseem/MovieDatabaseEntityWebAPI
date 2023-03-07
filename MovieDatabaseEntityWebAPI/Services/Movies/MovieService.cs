@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MovieDatabaseEntityWebAPI.Exceptions;
 using MovieDatabaseEntityWebAPI.Models;
 using MovieDatabaseEntityWebAPI.Models.Entities;
-
+using Microsoft.AspNetCore.Mvc;
 namespace MovieDatabaseEntityWebAPI.Services.Movies
 {
     public class MovieService : IMovieService
@@ -52,7 +53,6 @@ namespace MovieDatabaseEntityWebAPI.Services.Movies
                 _logger.LogError("Movie not found with Id: " + id);
                 throw new MovieNotFoundException();
             }
-            // Want to include all related data for professor
             return await _context.Movies
                 .Where(m => m.Id == id)
                 .Include(m => m.Characters)
@@ -95,10 +95,31 @@ namespace MovieDatabaseEntityWebAPI.Services.Movies
             // Save all the changes
             await _context.SaveChangesAsync();
         }
+        public  async Task<IEnumerable<Character>> GetCharactersAsync(int movieId)
+
+        {
+            // Log and throw error handling
+            if (!await MovieExistsAsync(movieId))
+            {
+                _logger.LogError("Movie not found with Id: " + movieId);
+                throw new MovieNotFoundException();
+            }
+            var movie = await _context.Movies
+                .Include(m=>m.Characters)
+                .SingleOrDefaultAsync(m=>m.Id== movieId);
+
+            
+            return movie?.Characters ?? Enumerable.Empty<Character>();
+          
+
+
+        }
 
         private async Task<bool> MovieExistsAsync(int id)
         {
             return await _context.Movies.AnyAsync(e => e.Id == id);
         }
+
+        
     }
 }
