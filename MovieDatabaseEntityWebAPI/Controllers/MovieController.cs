@@ -168,6 +168,10 @@ namespace MovieDatabaseEntityWebAPI.Controllers
                     );
             }
         }
+        /// <summary>
+        /// get all characters in the movie by id
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("{id}/characters")]
         public async Task<ActionResult<IEnumerable<CharacterSummaryDto>>> GetCharactersForMovieAsync(int id)
         {

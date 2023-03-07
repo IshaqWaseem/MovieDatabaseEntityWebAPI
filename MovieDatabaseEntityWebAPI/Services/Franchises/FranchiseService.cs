@@ -89,7 +89,26 @@ namespace MovieDatabaseEntityWebAPI.Services.Franchises
       
             await _context.SaveChangesAsync();
         }
+        public async Task<IEnumerable<Movie>> GetFranchisesAsync(int franchiseId)
 
+        {
+            // Log and throw error handling
+            if (!await FranchiseExistsAsync(franchiseId))
+            {
+                _logger.LogError("Franchise not found with Id: " + franchiseId);
+                throw new MovieNotFoundException();
+            }
+            var moviesInFranchise = await _context.Movies
+                .Include(f => f.Franchise)
+                .Where(f => f.FranchiseId == franchiseId)
+                .ToListAsync();
+
+
+            return moviesInFranchise;
+
+
+
+        }
         private async Task<bool> FranchiseExistsAsync(int id)
         {
             return await _context.Franchises.AnyAsync(e => e.Id == id);
